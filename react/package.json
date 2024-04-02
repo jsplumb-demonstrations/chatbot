@@ -1,5 +1,5 @@
 {
-    "name": "my-app",
+    "name": "chatbot-builder-react",
     "version": "6.17.0",
     "private": true,
     "dependencies": {

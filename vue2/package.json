@@ -1,5 +1,5 @@
 {
-    "name": "vue2",
+    "name": "chatbot-builder-vue2",
     "version": "6.17.0",
     "scripts": {
         "dev": "vite",
