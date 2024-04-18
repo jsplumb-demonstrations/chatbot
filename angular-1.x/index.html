@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title>jsPlumbToolkit - Chatbot builder</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/@jsplumbtoolkit/browser-ui/js/jsplumbtoolkit.browser-ui.umd.js"></script>
+        <script src="jsplumbtoolkit-angular-1.x.js"></script>
+
+        <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css">
+        <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-connector-editors.css">
+        <link rel="stylesheet" href="node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css">
+        <link rel="stylesheet" href="./app.css">
+    </head>
+
+    <body>
+
+        <div class="jtk-demo-main" id="jtk-demo-chatbot" ng-controller="ChatbotController as ChatbotController" ng-app="app">
+
+            <script type="text/ng-template" id="start_template.tpl">
+                <div class="jtk-chatbot-start">
+                    <div class="jtk-delete"></div>
+                    <div class="connect" data-jtk-source="true"></div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="end_template.tpl">
+                <div class="jtk-chatbot-end" data-jtk-target="true">
+                    <div class="jtk-delete"></div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="message_template.tpl">
+                <div class="jtk-chatbot-message" data-jtk-target="true">
+                    <div class="jtk-delete"></div>
+                    {{node.message}}
+                    <div class="connect" data-jtk-source="true"></div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="userinput_template.tpl">
+                <div class="jtk-chatbot-userinput" data-jtk-target="true">
+                    <div class="jtk-delete"></div>
+                    {{node.message}}
+                    <textarea rows="5" cols="10" placeholder="{{node.prompt}}"></textarea>
+                    <div class="connect" data-jtk-source="true"></div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="choice_template.tpl">
+                <div class="jtk-chatbot-choice" data-jtk-target="true">
+                    <div class="jtk-delete"></div>
+                    {{node.message}}
+                    <div class="jtk-choice-add"></div>
+
+                        <div ng-repeat="choice in node.choices track by choice.id" class="jtk-chatbot-choice-option"
+                             data-jtk-source="true"
+                             data-jtk-port-type="choice"
+                             data-jtk-port="{{choice.id}}">
+                            {{choice.label}}
+                            <div class="jtk-choice-delete"></div>
+                        </div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="test_template.tpl">
+                <div class="jtk-chatbot-test" data-jtk-target="true">
+                    <div class="jtk-delete"></div>
+                    {{node.message}}
+                    <div class="jtk-test-add"></div>
+
+                        <div ng-repeat="choice in node.choices track by choice.id" class="jtk-chatbot-choice-option"
+                             data-jtk-source="true"
+                             data-jtk-port-type="choice"
+                             data-jtk-port="{{choice.id}}">
+                            {{choice.label}}
+                            <div class="jtk-choice-delete"></div>
+                        </div>
+
+                </div>
+            </script>
+
+
+            <!-- main drawing area -->
+            <div class="jtk-demo-canvas">
+
+                <jsplumb-toolkit params="ChatbotController.toolkitParams"
+                                 init="ChatbotController.init"
+                                 render-params="ChatbotController.renderParams"
+                                 jtk-id="chatbotToolkit"
+                                 surface-id="chatbotSurface">
+
+                </jsplumb-toolkit>
+
+                <!-- controls -->
+                <div class="jtk-controls-container"></div>
+                <!-- miniview -->
+                <div class="miniview">
+                    <jsplumb-miniview surface-id="chatbotSurface" class="miniview"></jsplumb-miniview>
+                </div>
+            </div>
+            <div class="jtk-demo-rhs">
+
+                <!-- the node palette -->
+
+                <div class="sidebar node-palette" jsplumb-palette selector="div" surface-id="chatbotSurface" generator="ChatbotController.dataGenerator">
+                    <div class="jtk-chatbot-palette-item" data-type="start">
+                        start
+                    </div>
+                    <div class="jtk-chatbot-palette-item" data-type="end">
+                        end
+                    </div>
+                    <div class="jtk-chatbot-palette-item" data-type="message">
+                        message
+                    </div>
+                    <div class="jtk-chatbot-palette-item" data-type="userinput">
+                        input
+                    </div>
+                    <div class="jtk-chatbot-palette-item" data-type="choice">
+                        choice
+                    </div>
+                    <div class="jtk-chatbot-palette-item" data-type="test">
+                        test
+                    </div>
+                </div>
+                <!-- node/edge inspector -->
+                <div class="inspector"></div>
+            </div>
+
+
+        </div>
+
+        <!-- the demo code -->
+        <script src="demo.js"></script>
+
+    </body>
+</html>
