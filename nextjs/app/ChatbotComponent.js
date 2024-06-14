@@ -1,6 +1,7 @@
-'use client'
+"use client"
 
 import React, { useEffect, useRef } from "react";
+import { createRoot } from "react-dom/client";
 
 import './chatbot.css'
 
@@ -10,25 +11,25 @@ import {
     EVENT_TAP,
     uuid,
     AbsoluteLayout,
-    PlainArrowOverlay
+    PlainArrowOverlay,
+    newInstance
 } from "@jsplumbtoolkit/browser-ui"
 
 import {
-    SurfaceComponent,
-    MiniviewComponent,
-    ControlsComponent,
-    SurfaceDropComponent
+    JsPlumbToolkitSurfaceComponent,
+    JsPlumbToolkitMiniviewComponent,
+    ControlsComponent
 } from "@jsplumbtoolkit/browser-ui-react";
 
-import { CHOICES,
+import {
+    CHOICES,
     START,
     END,
     ACTION_CHOICE,
     ACTION_INPUT,
     ACTION_MESSAGE,
     ACTION_TEST,
-    SELECTABLE,
-    nodeTypes
+    SELECTABLE, nodeTypes
 } from "./constants";
 
 import StartComponent from './StartComponent'
@@ -38,23 +39,25 @@ import InputComponent from './InputComponent'
 import ChoiceComponent from './ChoiceComponent'
 import TestComponent from './TestComponent'
 import InspectorComponent from "./InspectorComponent";
-
-import './chatbot.css'
+import Palette from './Palette'
 
 const SURFACE_ID = "surface"
 
 export default function ChatbotComponent({ctx}) {
 
-    const surfaceComponent = useRef(null)
     const initialized = useRef(false)
-    const surface = useRef(null)
-    const toolkit = useRef(null)
+    const surfaceComponent = useRef(null)
+    const miniviewContainer = useRef(null)
+    const controlsContainer = useRef(null)
+    const inspectorContainer = useRef(null)
+    const paletteContainer = useRef(null)
 
-    const toolkitParams ={
+    const toolkit = newInstance({
         // the name of the property in each node's data that is the key for the data for the ports for that node.
         // for more complex setups you can use `portExtractor` and `portUpdater` functions - see the documentation for examples.
         portDataProperty:CHOICES
-    }
+
+    })
 
     const renderParams= {
         zoomToFit:true,
@@ -80,54 +83,54 @@ export default function ChatbotComponent({ctx}) {
             [START]:{
                 parent:SELECTABLE,
                 jsx: (ctx) => <StartComponent ctx={ctx}/>
-            },
-            [END]:{
-                parent:SELECTABLE,
-                    jsx: (ctx) => <EndComponent ctx={ctx}/>
-            },
-            [ACTION_MESSAGE]:{
-                parent:SELECTABLE,
-                    jsx: (ctx) => <MessageComponent ctx={ctx}/>
-            },
-            [ACTION_INPUT]:{
-                parent:SELECTABLE,
-                    jsx: (ctx) => <InputComponent ctx={ctx}/>
-            },
-            [ACTION_CHOICE]:{
-                parent:SELECTABLE,
-                    jsx: (ctx) => <ChoiceComponent ctx={ctx}/>
-            },
-            [ACTION_TEST]:{
-                parent:SELECTABLE,
-                    jsx: (ctx) => <TestComponent ctx={ctx}/>
-            }
-        },
-        edges:{
-            default:{
-                overlays:[
-                    {
-                        type:PlainArrowOverlay.type,
-                        options:{
-                            location:1,
-                            width:10,
-                            length:10
-                        }
-                    }
-                ],
-                label:"{{label}}",
-                events:{
-                    [EVENT_TAP]:(p) => {
-                        toolkit.setSelection(p.edge)
+},
+    [END]:{
+        parent:SELECTABLE,
+            jsx: (ctx) => <EndComponent ctx={ctx}/>
+    },
+    [ACTION_MESSAGE]:{
+        parent:SELECTABLE,
+            jsx: (ctx) => <MessageComponent ctx={ctx}/>
+    },
+    [ACTION_INPUT]:{
+        parent:SELECTABLE,
+            jsx: (ctx) => <InputComponent ctx={ctx}/>
+    },
+    [ACTION_CHOICE]:{
+        parent:SELECTABLE,
+            jsx: (ctx) => <ChoiceComponent ctx={ctx}/>
+    },
+    [ACTION_TEST]:{
+        parent:SELECTABLE,
+            jsx: (ctx) => <TestComponent ctx={ctx}/>
+    }
+},
+    edges:{
+    default:{
+            overlays:[
+                {
+                    type:PlainArrowOverlay.type,
+                    options:{
+                        location:1,
+                        width:10,
+                        length:10
                     }
                 }
-            }
-        },
-        ports:{
-            choice:{
-                anchor:[AnchorLocations.Left, AnchorLocations.Right ]
+            ],
+                label:"{{label}}",
+                events:{
+                [EVENT_TAP]:(p) => {
+                    toolkit.setSelection(p.edge)
+                }
             }
         }
+    },
+    ports:{
+        choice:{
+            anchor:[AnchorLocations.Left, AnchorLocations.Right ]
+        }
     }
+}
 
     function dataGenerator(el) {
         const type = el.getAttribute("data-type")
@@ -162,10 +165,27 @@ export default function ChatbotComponent({ctx}) {
         if (!initialized.current) {
 
             initialized.current = true
+            const surface = surfaceComponent.current.surface
 
-            surface.current = surfaceComponent.current.getSurface()
-            toolkit.current = surface.current.toolkitInstance
-            toolkit.current.load({
+            const cc = createRoot(controlsContainer.current)
+            cc.render(<ControlsComponent surface={surface}/>)
+
+            const pc = createRoot(paletteContainer.current)
+            pc.render(<Palette
+            surface={surfaceComponent.current.surface}
+            dataGenerator={dataGenerator}
+            selector=".jtk-chatbot-palette-item"
+            container={paletteContainer.current}
+            />)
+
+            const i = createRoot(inspectorContainer.current)
+            i.render(<InspectorComponent surface={surface}/>)
+
+            const m = createRoot(miniviewContainer.current)
+            m.render(<JsPlumbToolkitMiniviewComponent surface={surface}/>)
+
+
+            toolkit.load({
                 url:`/dataset.json?q=${uuid()}`
             })
         }
@@ -174,21 +194,17 @@ export default function ChatbotComponent({ctx}) {
 
     return <div style={{width:"100%",height:"100%",display:"flex"}}>
 <div className="jtk-demo-canvas">
-        <SurfaceComponent surfaceId={SURFACE_ID}
-    renderParams={renderParams} toolkitParams={toolkitParams}
-    view={view} ref={ surfaceComponent }>
-
-        <ControlsComponent/>
-        <MiniviewComponent/>
-        </SurfaceComponent>
-        </div>
-        <div className="jtk-demo-rhs">
+        <JsPlumbToolkitSurfaceComponent surfaceId={SURFACE_ID}
+    renderParams={renderParams} toolkit={toolkit}
+    view={view} ref={ surfaceComponent }/>
+    <div className="jtk-controls-container" ref={ controlsContainer }/>
+    <div className="miniview" ref={ miniviewContainer }/>
+    </div>
+    <div className="jtk-demo-rhs">
         <div className="sidebar node-palette">
-        <SurfaceDropComponent surfaceId={SURFACE_ID} dataGenerator={dataGenerator} selector=".jtk-chatbot-palette-item">
-        {nodeTypes.map(nt => <div key={nt.type} className="jtk-chatbot-palette-item" data-type={nt.type}>{nt.label}</div>)}
-                </SurfaceDropComponent>
+        <div className="sidebar node-palette" ref={paletteContainer}/>
 
-                <InspectorComponent surfaceId={SURFACE_ID}/>
+    <div id="inspector" ref={inspectorContainer}/>
     <div className="description"></div>
         </div>
         </div>

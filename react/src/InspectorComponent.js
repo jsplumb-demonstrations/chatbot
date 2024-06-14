@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 
 import { Inspector, isNode, isPort} from "@jsplumbtoolkit/browser-ui"
-import { getSurfaceComponent } from "@jsplumbtoolkit/browser-ui-react";
 
 import {
 ACTION_TEST, ACTION_MESSAGE, ACTION_CHOICE, ACTION_INPUT, START, END
