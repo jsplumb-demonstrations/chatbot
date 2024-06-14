@@ -1,9 +1,9 @@
 {
     "name": "chatbot-builder-react",
-    "version": "6.24.0",
+    "version": "6.25.0",
     "private": true,
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui-react": "^6.24.0",
+        "@jsplumbtoolkit/browser-ui-react": "^6.25.0",
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^13.5.0",
