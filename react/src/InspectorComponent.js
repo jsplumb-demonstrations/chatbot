@@ -10,31 +10,25 @@ ACTION_TEST, ACTION_MESSAGE, ACTION_CHOICE, ACTION_INPUT, START, END
 const CHOICE_PORT="choicePort"
 const EDGE = "edge"
 
-export default function InspectorComponent({surfaceId}) {
+export default function InspectorComponent({surface}) {
 
-    const initialized = useRef(false)
     const container = useRef(null)
     const [currentType, setCurrentType] = useState('')
     const [inspector, setInspector] = useState(null)
 
     useEffect(() => {
 
-        if (!initialized.current) {
-            initialized.current = true
-            getSurfaceComponent(surfaceId, surfaceComponentRef => {
-                setInspector(new Inspector({
-                    container: container.current,
-                    surface: surfaceComponentRef.getSurface(),
-                    renderEmptyContainer: () => setCurrentType(''),
-                    refresh: (obj, cb) => {
-                        const ct = isNode(obj) ? obj.data.type : isPort(obj) ? CHOICE_PORT : EDGE
-                        setCurrentType(ct)
-                        // next tick
-                        setTimeout(cb)
-                    }
-                }))
-            })
-        }
+        setInspector(new Inspector({
+            container:container.current,
+            surface,
+            renderEmptyContainer:() => setCurrentType(''),
+            refresh:(obj, cb) => {
+                const ct = isNode(obj) ? obj.data.type : isPort(obj) ? CHOICE_PORT : EDGE
+                setCurrentType(ct)
+                // next tick
+                setTimeout(cb)
+            }
+        }))
 
     }, [])
 
