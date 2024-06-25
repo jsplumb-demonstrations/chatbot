@@ -40,11 +40,6 @@ import {
         <input type="text" jtk-att="${PROPERTY_MESSAGE}" placeholder="message"/>
     </div>
     
-    <div *ngIf='currentType === "${ACTION_MESSAGE}"' class="jtk-chatbot-inspector">
-        <span>Message:</span>
-        <input type="text" jtk-att="${PROPERTY_MESSAGE}" placeholder="message"/>
-    </div>
-    
     <div *ngIf="currentType === CHOICE_PORT" class="jtk-chatbot-inspector">
         <span>Label:</span>
         <input type="text" jtk-att="${PROPERTY_LABEL}" jtk-focus placeholder="enter label..."/>
