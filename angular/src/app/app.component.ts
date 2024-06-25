@@ -13,7 +13,8 @@ import {
   EVENT_TAP,
   PlainArrowOverlay,
   Surface,
-  Base
+  Base,
+  EVENT_CANVAS_CLICK
 } from "@jsplumbtoolkit/browser-ui"
 import {ACTION_CHOICE, ACTION_INPUT, ACTION_MESSAGE, ACTION_TEST, END, SELECTABLE, START} from "./constants"
 import {ChoiceComponent} from "./choice.component"
@@ -46,6 +47,8 @@ export class AppComponent {
     this.toolkit.load({
       url:'/assets/dataset.json'
     })
+
+    ;(window as any).t = this.toolkit
   }
 
   nodeTypes = [
@@ -70,6 +73,9 @@ export class AppComponent {
     },
     layout:{
       type:AbsoluteLayout.type
+    },
+    events:{
+      [EVENT_CANVAS_CLICK]:() => this.toolkit.clearSelection()
     }
   }
 
