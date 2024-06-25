@@ -11,6 +11,7 @@ import {InputComponent} from "./input.component"
 import {ChoiceComponent} from "./choice.component"
 import {TestComponent} from './test.component'
 import {InspectorComponent} from "./inspector.component"
+import {ChoiceOptionComponent} from "./choice-option.component"
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {InspectorComponent} from "./inspector.component"
     InputComponent,
     ChoiceComponent,
     InspectorComponent,
-    TestComponent
+    TestComponent, ChoiceOptionComponent
   ],
   imports: [
     BrowserModule,
