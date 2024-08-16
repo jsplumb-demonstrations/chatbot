@@ -14,8 +14,8 @@ import {
 } from "@jsplumbtoolkit/browser-ui"
 
 import {
-    JsPlumbToolkitSurfaceComponent,
-    JsPlumbToolkitMiniviewComponent,
+    SurfaceComponent, SurfaceProvider,
+    MiniviewComponent,
     ControlsComponent
 } from "@jsplumbtoolkit/browser-ui-react";
 
@@ -36,7 +36,7 @@ import MessageComponent from './MessageComponent'
 import InputComponent from './InputComponent'
 import ChoiceComponent from './ChoiceComponent'
 import TestComponent from './TestComponent'
-import InspectorComponent from "./InspectorComponent";
+import Inspector from "./Inspector";
 import Palette from './Palette'
 
 const SURFACE_ID = "surface"
@@ -129,77 +129,23 @@ export default function ChatbotComponent({ctx}) {
         }
     }
 
-    function dataGenerator(el) {
-        const type = el.getAttribute("data-type")
-        const base = { type }
-        if (type === ACTION_MESSAGE) {
-            Object.assign(base, { message:"Send a message"})
-        } else if (type === ACTION_INPUT) {
-            Object.assign(base, { message:"Grab some input", prompt:"please enter input"})
-        } else if (type === ACTION_CHOICE) {
-            Object.assign(base, {
-                message:"Please choose:",
-                choices:[
-                    { id:"1", label:"Choice 1"},
-                    { id:"2", label:"Choice 2"},
-                ]
-            })
-        } else if (type === ACTION_TEST) {
-            Object.assign(base, {
-                message:"Test",
-                choices:[
-                    { id:"1", label:"Result 1"},
-                    { id:"2", label:"Result 2"},
-                ]
-            })
-        }
-
-        return base
-    }
-
-    useEffect(() => {
-
-        const surface = surfaceComponent.current.surface
-
-        const cc = createRoot(controlsContainer.current)
-        cc.render(<ControlsComponent surface={surface}/>)
-
-        const pc = createRoot(paletteContainer.current)
-        pc.render(<Palette
-        surface={surfaceComponent.current.surface}
-        dataGenerator={dataGenerator}
-        selector=".jtk-chatbot-palette-item"
-        container={paletteContainer.current}
-        />)
-
-        const i = createRoot(inspectorContainer.current)
-        i.render(<InspectorComponent surface={surface}/>)
-
-        const m = createRoot(miniviewContainer.current)
-        m.render(<JsPlumbToolkitMiniviewComponent surface={surface}/>)
-
-
-        toolkit.load({
-            url:`/dataset.json?q=${uuid()}`
-        })
-    }, [])
 
 
     return <div style={{width:"100%",height:"100%",display:"flex"}}>
+        <SurfaceProvider>
         <div className="jtk-demo-canvas">
-            <JsPlumbToolkitSurfaceComponent surfaceId={SURFACE_ID}
-                    renderParams={renderParams} toolkit={toolkit}
-                    view={view} ref={ surfaceComponent }/>
-            <div className="jtk-controls-container" ref={ controlsContainer }/>
-            <div className="miniview" ref={ miniviewContainer }/>
+            <SurfaceComponent renderOptions={renderParams} toolkit={toolkit} url="/public/dataset.json"
+                    viewOptions={view} ref={ surfaceComponent }/>
+            <ControlsComponent/>
+            <MiniviewComponent/>
         </div>
         <div className="jtk-demo-rhs">
             <div className="sidebar node-palette">
-                <div className="sidebar node-palette" ref={paletteContainer}/>
-
-                <div id="inspector" ref={inspectorContainer}/>
+                <Palette/>
+                <Inspector/>
                 <div className="description"></div>
             </div>
         </div>
+        </SurfaceProvider>
     </div>
 }

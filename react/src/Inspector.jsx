@@ -1,6 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 
-import { Inspector, isNode, isPort} from "@jsplumbtoolkit/browser-ui"
+import { isNode, isPort} from "@jsplumbtoolkit/browser-ui"
+
+import { InspectorComponent } from "@jsplumbtoolkit/browser-ui-react"
 
 import {
 ACTION_TEST, ACTION_MESSAGE, ACTION_CHOICE, ACTION_INPUT, START, END
@@ -9,27 +11,15 @@ ACTION_TEST, ACTION_MESSAGE, ACTION_CHOICE, ACTION_INPUT, START, END
 const CHOICE_PORT="choicePort"
 const EDGE = "edge"
 
-export default function InspectorComponent({surface}) {
+export default function ChatbotInspector() {
 
-    const container = useRef(null)
     const [currentType, setCurrentType] = useState('')
-    const [inspector, setInspector] = useState(null)
 
-    useEffect(() => {
-
-        setInspector(new Inspector({
-            container:container.current,
-            surface,
-            renderEmptyContainer:() => setCurrentType(''),
-            refresh:(obj, cb) => {
-                const ct = isNode(obj) ? obj.data.type : isPort(obj) ? CHOICE_PORT : EDGE
-                setCurrentType(ct)
-                // next tick
-                setTimeout(cb)
-            }
-        }))
-
-    }, [])
+    const renderEmptyContainer= () => setCurrentType('')
+    const refresh = (obj) => {
+        const ct = isNode(obj) ? obj.data.type : isPort(obj) ? CHOICE_PORT : EDGE
+        setCurrentType(ct)
+    }
 
     function baseActionTemplate() {
         return <div className="jtk-chatbot-inspector">
@@ -38,7 +28,7 @@ export default function InspectorComponent({surface}) {
             </div>
     }
 
-    return <div ref={container}>
+    return <InspectorComponent refresh={refresh} renderEmptyContainer={renderEmptyContainer}>
 
             { currentType === '' && <div/>}
             { currentType === START && <div/>}
@@ -73,6 +63,6 @@ export default function InspectorComponent({surface}) {
     }
 
 
-        </div>
+        </InspectorComponent>
 
 }
