@@ -1,4 +1,5 @@
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
+@import "../node_modules/@jsplumbtoolkit/browser-ui-angular/css/jsplumbtoolkit-angular.css";
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css";
 
 jsplumb-surface, .jtk-surface {
@@ -86,6 +87,10 @@ jsplumb-miniview {
   top: 25px;
   right: 25px;
   z-index: 100;
+}
+
+.jtk-miniview {
+  position:relative;
 }
 
 jsplumb-controls {
