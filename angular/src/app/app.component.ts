@@ -3,10 +3,9 @@ import {
   AngularRenderOptions,
   BrowserUIAngular,
   jsPlumbService,
-  jsPlumbSurfaceComponent
+  SurfaceComponent
 } from "@jsplumbtoolkit/browser-ui-angular"
 import {
-  AbsoluteLayout,
   AnchorLocations,
   BlankEndpoint,
   Edge,
@@ -31,8 +30,7 @@ import {TestComponent} from "./test.component"
 })
 export class AppComponent {
 
-  @ViewChild(jsPlumbSurfaceComponent)
-  surfaceComponent!: jsPlumbSurfaceComponent
+  @ViewChild(SurfaceComponent) surfaceComponent!: SurfaceComponent
 
   toolkit!: BrowserUIAngular
   surface!: Surface
@@ -48,7 +46,6 @@ export class AppComponent {
       url:'/assets/dataset.json'
     })
 
-    ;(window as any).t = this.toolkit
   }
 
   nodeTypes = [
@@ -70,9 +67,6 @@ export class AppComponent {
     defaults:{
       endpoint:BlankEndpoint.type,
       anchor:AnchorLocations.Continuous
-    },
-    layout:{
-      type:AbsoluteLayout.type
     },
     events:{
       [EVENT_CANVAS_CLICK]:() => this.toolkit.clearSelection()
