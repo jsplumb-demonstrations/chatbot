@@ -19,10 +19,10 @@ export class ChoiceOptionComponent extends BasePortComponent {
   }
 
   inspectChoice(id:string) {
-    this.parent.toolkit.setSelection(this.parent.getNode().getPort(id))
+    this.parent.toolkit.setSelection(this.parent.getVertex().getPort(id))
   }
 
   removeChoice(id:string) {
-    this.parent.toolkit.removePort(this.parent.getNode(), id)
+    this.parent.toolkit.removePort(this.parent.getVertex(), id)
   }
 }
