@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input} from "@angular/core"
-import {jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
+import {DEFAULT_ANGULAR_SURFACE_ID, jsPlumbService} from "@jsplumbtoolkit/browser-ui-angular"
 import {Base, Inspector, isNode, isPort } from "@jsplumbtoolkit/browser-ui"
 
 import {
@@ -56,7 +56,7 @@ export class InspectorComponent implements AfterViewInit {
 
   currentType:string = ''
 
-  @Input() surfaceId:string
+  @Input() surfaceId:string = DEFAULT_ANGULAR_SURFACE_ID
 
   // @ts-ignore
   inspector:Inspector
