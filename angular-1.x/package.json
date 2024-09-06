@@ -1,6 +1,6 @@
 {
     "name": "chatbot-builder-angularjs",
-    "version": "6.60.0",
+    "version": "6.70.0",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -23,7 +23,7 @@
         "http-server": "^14.1.1"
     },
     "dependencies": {
-        "@jsplumbtoolkit/browser-ui": "^6.60.0",
+        "@jsplumbtoolkit/browser-ui": "^6.70.0",
         "angular": "^1.8.3"
     }
 }
