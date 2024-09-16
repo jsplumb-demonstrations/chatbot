@@ -37,17 +37,6 @@ export class AppComponent {
 
   constructor(public $jsplumb:jsPlumbService) { }
 
-  ngAfterViewInit() {
-
-    this.surface = this.surfaceComponent.surface
-    this.toolkit = this.surfaceComponent.toolkit
-
-    this.toolkit.load({
-      url:'/assets/dataset.json'
-    })
-
-  }
-
   nodeTypes = [
     {type:START, label:"Start"},
     {type:END, label:"End"},
@@ -69,7 +58,7 @@ export class AppComponent {
       anchor:AnchorLocations.Continuous
     },
     events:{
-      [EVENT_CANVAS_CLICK]:() => this.toolkit.clearSelection()
+      [EVENT_CANVAS_CLICK]:(s:Surface) => s.toolkitInstance.clearSelection()
     }
   }
 
@@ -77,8 +66,8 @@ export class AppComponent {
     nodes:{
       [SELECTABLE]:{
         events:{
-          [EVENT_TAP]:(p:{obj:Base}) => {
-            this.toolkit.setSelection(p.obj)
+          [EVENT_TAP]:(p:{obj:Base, toolkit:BrowserUIAngular}) => {
+            p.toolkit.setSelection(p.obj)
           }
         }
       },
@@ -122,8 +111,8 @@ export class AppComponent {
         label:"{{label}}",
         useHTMLLabel:true,
         events:{
-          [EVENT_TAP]:(p:{edge:Edge}) => {
-            this.toolkit.setSelection(p.edge)
+          [EVENT_TAP]:(p:{edge:Edge, toolkit:BrowserUIAngular}) => {
+            p.toolkit.setSelection(p.edge)
           }
         }
       }
