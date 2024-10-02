@@ -43,3 +43,7 @@ fs.copyFile("./dataset.json", "./dist/dataset.json", (err) => {
 fs.copyFile("./node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css", "./dist/jsplumbtoolkit.css", (err) => {
     if (err) throw err;
 });
+
+fs.copyFile("./node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css", "./dist/jsplumbtoolkit-controls.css", (err) => {
+    if (err) throw err;
+});
