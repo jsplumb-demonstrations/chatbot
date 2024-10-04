@@ -6,6 +6,8 @@ export const ACTION_INPUT = "input"
 export const ACTION_CHOICE = "choice"
 export const ACTION_TEST = "test"
 
+export const CHOICE_PORT = "choice-port"
+export const EDGE = "edge"
 
 export const SELECTABLE = "selectable"
 

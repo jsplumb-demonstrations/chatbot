@@ -21,14 +21,19 @@
     function removeChoice(id) {
         toolkit.removePort(vertex, id)
     }
+
+    function selectChoice(id) {
+        toolkit.setSelection(vertex.getPort(id))
+    }
 </script>
 
 <div class="jtk-chatbot-choice" data-jtk-target="true">
     <div class="jtk-delete" on:click={remove}></div>
     {data.message}
     <div class="jtk-choice-add" on:click={addChoice}></div>
-    {#each data.choices as choice}
+    {#each data.choices as choice (choice.id)}
         <div class="jtk-chatbot-choice-option"
+             on:click={() => selectChoice(choice.id)}
              data-jtk-source="true"
              data-jtk-port-type="choice"
              data-jtk-port={choice.id}>
