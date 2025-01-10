@@ -1,9 +1,7 @@
 import {
     newInstance,
     ready,
-    AbsoluteLayout,
     SurfaceDropManager,
-    BlankEndpoint,
     AnchorLocations,
     PlainArrowOverlay,
     EVENT_TAP, uuid,
@@ -33,9 +31,6 @@ ready(() => {
     window.tk = toolkit
 
     const surface = toolkit.render(canvas, {
-        layout:{
-            type:AbsoluteLayout.type
-        },
         view:{
             nodes:{
                 [SELECTABLE]:{
@@ -138,10 +133,6 @@ ready(() => {
         },
         zoomToFit:true,
         consumeRightClick:false,
-        defaults:{
-            endpoint:BlankEndpoint.type,
-            anchor:AnchorLocations.Continuous
-        },
         modelEvents:[
             {
                 event:EVENT_TAP,
