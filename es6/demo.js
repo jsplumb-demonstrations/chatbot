@@ -131,6 +131,11 @@ ready(() => {
                 }
             }
         },
+        grid:{
+            size:{
+                w:10, h:10
+            }
+        },
         zoomToFit:true,
         consumeRightClick:false,
         modelEvents:[

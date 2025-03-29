@@ -1,6 +1,5 @@
 @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
 @import "../node_modules/@jsplumbtoolkit/browser-ui-angular/css/jsplumbtoolkit-angular.css";
-@import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-controls.css";
 
 jsplumb-surface, .jtk-surface {
   width:100%;
@@ -8,13 +7,13 @@ jsplumb-surface, .jtk-surface {
 }
 
 :root {
-  --bg-choice:rebeccapurple;
-  --bg-choice-option:#bb99a4;
-  --bg-input:coral;
-  --bg-start:navy;
-  --bg-end: #ff667b;
-  --bg-message:mediumseagreen;
-  --bg-delete:orangered;
+  --bg-choice: #542782;
+  --bg-choice-option: #c5a2ad;
+  --bg-input: #ac5230;
+  --bg-start: navy;
+  --bg-end: #bf3700;
+  --bg-message: #299157;;
+  --bg-delete: orangered;
   --bg-test: #e1b987;
 }
 
