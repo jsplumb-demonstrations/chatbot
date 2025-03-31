@@ -16,7 +16,7 @@ npm run dev
 
 ## Docs
 
-See [https://docs.jsplumbtoolkit.com/toolkit/6.x/lib/starter-app-chatbot-builder](https://docs.jsplumbtoolkit.com/toolkit/6.x/lib/starter-app-chatbot-builder) for a discussion of the vanilla Chatbot Builder.
+See [https://docs.jsplumbtoolkit.com/toolkit/7.x/lib/starter-app-chatbot-builder](https://docs.jsplumbtoolkit.com/toolkit/6.x/lib/starter-app-chatbot-builder) for a discussion of the vanilla Chatbot Builder.
 
 
 

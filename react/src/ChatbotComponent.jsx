@@ -1,14 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { createRoot } from "react-dom/client";
+import React, { useRef } from "react";
 
 import './chatbot.css'
 
 import {
     AnchorLocations,
-    BlankEndpoint,
     EVENT_TAP,
-    uuid,
-    AbsoluteLayout,
     PlainArrowOverlay,
     newInstance
 } from "@jsplumbtoolkit/browser-ui"
@@ -27,7 +23,7 @@ import {
     ACTION_INPUT,
     ACTION_MESSAGE,
     ACTION_TEST,
-    SELECTABLE, nodeTypes
+    SELECTABLE
 } from "./constants";
 
 import StartComponent from './StartComponent'
@@ -39,15 +35,10 @@ import TestComponent from './TestComponent'
 import Inspector from "./Inspector";
 import Palette from './Palette'
 
-const SURFACE_ID = "surface"
 
 export default function ChatbotComponent({ctx}) {
 
     const surfaceComponent = useRef(null)
-    const miniviewContainer = useRef(null)
-    const controlsContainer = useRef(null)
-    const inspectorContainer = useRef(null)
-    const paletteContainer = useRef(null)
 
     const toolkit = newInstance({
         // the name of the property in each node's data that is the key for the data for the ports for that node.
@@ -58,14 +49,7 @@ export default function ChatbotComponent({ctx}) {
 
     const renderParams= {
         zoomToFit:true,
-        consumeRightClick:false,
-        defaults:{
-            endpoint:BlankEndpoint.type,
-            anchor:AnchorLocations.Continuous
-        },
-        layout:{
-            type:AbsoluteLayout.type
-        }
+        consumeRightClick:false
     }
 
     const view = {
@@ -143,7 +127,7 @@ export default function ChatbotComponent({ctx}) {
             <div className="sidebar node-palette">
                 <Palette/>
                 <Inspector/>
-                <div className="description"></div>
+                <div className="description"/>
             </div>
         </div>
         </SurfaceProvider>
