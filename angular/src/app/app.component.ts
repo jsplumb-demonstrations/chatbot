@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core'
+import {Component, ViewChild, inject} from '@angular/core'
 import {
   AngularRenderOptions,
   BrowserUIAngular,
@@ -35,7 +35,7 @@ export class AppComponent {
   toolkit!: BrowserUIAngular
   surface!: Surface
 
-  constructor(public $jsplumb:jsPlumbService) { }
+  $jsplumb = inject(jsPlumbService)
 
   nodeTypes = [
     {type:START, label:"Start"},
@@ -53,10 +53,6 @@ export class AppComponent {
   renderParams:AngularRenderOptions = {
     zoomToFit:true,
     consumeRightClick:false,
-    defaults:{
-      endpoint:BlankEndpoint.type,
-      anchor:AnchorLocations.Continuous
-    },
     events:{
       [EVENT_CANVAS_CLICK]:(s:Surface) => s.toolkitInstance.clearSelection()
     }

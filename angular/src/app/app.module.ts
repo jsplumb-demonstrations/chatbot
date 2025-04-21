@@ -10,7 +10,7 @@ import {MessageComponent} from "./message.component"
 import {InputComponent} from "./input.component"
 import {ChoiceComponent} from "./choice.component"
 import {TestComponent} from './test.component'
-import {InspectorComponent} from "./inspector.component"
+import {ChatbotInspectorComponent} from "./inspector.component"
 import {ChoiceOptionComponent} from "./choice-option.component"
 
 @NgModule({
@@ -21,7 +21,7 @@ import {ChoiceOptionComponent} from "./choice-option.component"
     MessageComponent,
     InputComponent,
     ChoiceComponent,
-    InspectorComponent,
+    ChatbotInspectorComponent,
     TestComponent, ChoiceOptionComponent
   ],
   imports: [
