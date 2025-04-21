@@ -60,6 +60,18 @@ body {
     overflow: hidden !important;
 }
 
+.jtk-controls {
+    position:absolute;
+    left:1rem;
+    top:1rem;
+}
+
+.jtk-miniview {
+    position:absolute;
+    right:1rem;
+    top:1rem;
+}
+
 .jtk-demo-rhs {
     display: flex;
     flex-direction: column;
