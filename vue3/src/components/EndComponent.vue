@@ -1,6 +1,6 @@
 <template>
     <div class="jtk-chatbot-end" data-jtk-target="true">
-        <div class="jtk-delete"></div>
+        <div class="jtk-delete" @click="this.removeNode()"></div>
     </div>
 </template>
 <script>

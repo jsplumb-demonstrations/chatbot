@@ -1,6 +1,6 @@
 <template>
     <div class="jtk-chatbot-input" data-jtk-target="true">
-        <div class="jtk-delete"></div>
+        <div class="jtk-delete" @click="this.removeNode()"></div>
         {{obj.message}}
         <textarea rows="5" cols="10" :placeholder="obj.prompt"/>
         <div class="connect" data-jtk-source="true"/>

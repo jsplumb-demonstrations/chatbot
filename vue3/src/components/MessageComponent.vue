@@ -1,6 +1,6 @@
 <template>
     <div class="jtk-chatbot-message" data-jtk-target="true">
-        <div class="jtk-delete"></div>
+        <div class="jtk-delete" @click="this.removeNode()"></div>
         {{obj.message}}
         <div class="connect" data-jtk-source="true"/>
     </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="jtk-chatbot-test" data-jtk-target="true">
-        <div class="jtk-delete"></div>
+        <div class="jtk-delete" @click="this.removeNode()"></div>
         {{obj.message}}
         <div class="jtk-test-add" v-on:click="addTest()"></div>
         <div class="jtk-chatbot-choice-option" v-for="c in obj.choices" :key="c.id" v-bind:obj="c" v-on:click="editTest(c.id)"
