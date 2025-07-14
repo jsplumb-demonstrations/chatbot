@@ -274,7 +274,6 @@ body {
 }
 
 .jtk-surface-selected-element {
-  outline:2px dotted cornflowerblue;
+  outline: 6px solid cornflowerblue;
   outline-offset: 0.5rem;
-  border:none;
 }
